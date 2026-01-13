@@ -181,16 +181,18 @@ public class Picture extends SimplePicture {
      * Method to fix pictures taken underwater
      */
     public void fixUnderwater() {
-        Pixel[][] grid = this.getPixels2D();
-        for(Pixel[] grid : this.getPixels2D){
-                    for(Grid g : row){
-                        p.setRed(255-p.getRed());
-                        p.setGreen(200-p.getGreen());
-                        p.setBlue(0-p.getBlue());
+        Pixel[][] pixels = this.getPixels2D();
+        for(Pixel[] row : pixels){
+            for(Pixel p : row){
+                p.setRed((int)(p.getRed()*2.5));
+                p.setBlue((int)(p.getRed()*0.9));
+                p.setGreen((int)(p.getRed()*0.9));
+                
+            
+            
             }
         }
     }
-    
 
     /**
      * Method that mirrors the picture around a vertical mirror in the center of the
@@ -198,7 +200,13 @@ public class Picture extends SimplePicture {
      */
     public void mirrorVertical() {
         Pixel[][] picture = this.getPixels2D();
-
+        for(int row = 0; row < picture.length; row++){
+            for(int col = 0; col < picture[0].length/2; col++){
+                Pixel leftPixel = picture[row][col];
+                Pixel rightPixel = picture[row][picture[0].length - 1 - col];
+                rightPixel.setColor(leftPixel.getColor());
+            }
+        }
     }
 
     /**
@@ -207,7 +215,13 @@ public class Picture extends SimplePicture {
      */
     public void mirrorVerticalRightToLeft() {
         Pixel[][] pixels = this.getPixels2D();
-
+        for(int row = 0; row < pixels.length; row++){
+            for(int col = 0; col < pixels[0].length/2; col++){
+                Pixel leftPixel = pixels[row][col];
+                Pixel rightPixel = pixels[row][pixels[0].length - 1 - col];
+                leftPixel.setColor(rightPixel.getColor());
+            }
+        }
     }
 
     /**
@@ -216,7 +230,13 @@ public class Picture extends SimplePicture {
      */
     public void mirrorHorizontal() {
         Pixel[][] pixels = this.getPixels2D();
-
+        for(int row = 0; row < pixels.length/2; row++){
+            for(int col = 0; col < pixels[0].length; col++){
+                Pixel topPixel = pixels[row][col];
+                Pixel bottomPixel = pixels[pixels.length - 1 - row][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
     }
 
     /**
@@ -224,8 +244,16 @@ public class Picture extends SimplePicture {
      * the picture from bottom to top
      */
     public void mirrorHorizontalBotToTop() {
-
+         Pixel[][] pixels = this.getPixels2D();
+        for(int row = 0; row < pixels.length/2; row++){
+            for(int col = 0; col < pixels[0].length; col++){
+                Pixel topPixel = pixels[row][col];
+                Pixel bottomPixel = pixels[pixels.length - 1 - row][col];
+                topPixel.setColor(bottomPixel.getColor());
+            }
+        }
     }
+    
 
     /**
      * Mirror around a mirror positioned on the diagonal line from bottom left to
