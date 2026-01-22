@@ -38,7 +38,7 @@ public class PictureTester {
         // ---------------
         // ACTIVITY 7
         // testMirrorTemple();
-        // testMirrorArms();
+         testMirrorArms();
         // testMirrorGull();
 
         // ---------------
