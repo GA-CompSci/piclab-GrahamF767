@@ -291,17 +291,35 @@ public class Picture extends SimplePicture {
     }
 
     /** Mirror just part of a picture of a snowman */
-    public void mirrorArms() {
+     public void mirrorArms() {
         Pixel[][] pixels = this.getPixels2D();
         int mirrorPoint = 190;
-        for(int row = 165; row < 190; row++);
-            for(int col = 104; col < 194; col++ );
-            
+        for(int row = 165; row < 190; row++){
+            for(int col = 104; col < 194; col++){
+                Pixel topPixel = pixels[row][col];
+                Pixel bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+        for(int row = 170; row < 197; row++){
+            for(int col = 236; col < 295; col++){
+                Pixel topPixel = pixels[row][col];
+                Pixel bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    
     }
-
     /** Mirror just the gull */
     public void mirrorGull() {
-
+        Pixel[][] pixels = this.getPixels2D();
+        for(int row = 233; row < 321; row++){
+            for(int col = 236; col < 344; col++){
+                Pixel leftPixel = pixels[row][col];
+                Pixel rightPixel = pixels[row][pixels[0].length - col];
+                rightPixel.setColor(leftPixel.getColor());
+            }
+        }
     }
 
     /**
@@ -331,6 +349,15 @@ public class Picture extends SimplePicture {
     /** Method to create a collage of several pictures */
     public void createCollage() {
         Pixel[][] pixels = this.getPixels2D();
+        Picture swan1 = new Picture("swan.jpg");
+        Picture swan2 = new Picture("swan.jpg");
+        Picture swan3 = new Picture("swan.jpg");
+
+        swan1 = swan1.scale(1,1);
+        swan2 = swan2.scale(1,1);
+        swan3 = swan3.scale(1,1);
+
+        this.copy(swan1,0,0);
 
         this.popArt();
     }
