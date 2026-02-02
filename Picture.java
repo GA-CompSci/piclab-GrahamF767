@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.util.function.Consumer;
 
 /**
  * A class that represents a picture. This class inherits from SimplePicture and
@@ -321,20 +322,37 @@ public class Picture extends SimplePicture {
             }
         }
     }
-
     /**
      * Method to show large changes in color
      * 
      * @param edgeDist the distance for finding edges
      */
     public void edgeDetection(int edgeDist) {
+        Picture copy = new Picture(this);
+         Pixel[][] pixels = this.getPixels2D();
         Pixel leftPixel = null;
         Pixel rightPixel = null;
-        Pixel[][] pixels = this.getPixels2D();
-        Picture swan = new Picture("swan.jpg");
-        Pixel[][] original = swan.getPixels2D();
-
+        Color rightColor = null;
+        
+        for (int row = 0; row < pixels.length; row++){
+            for (int col = 0; col < pixels[0].length-1; col++){
+                leftPixel = pixels[row][col];
+                rightPixel = pixels[row][col+1];
+                rightColor = rightPixel.getColor();
+                if (leftPixel.colorDistance(rightColor) > edgeDist){ 
+                    leftPixel.setRed(0);
+                    leftPixel.setGreen(0);
+                    leftPixel.setBlue(0);
+                } else {
+                    leftPixel.setRed(255);
+                    leftPixel.setGreen(255);
+                    leftPixel.setBlue(255);
+                }
+            }
+        }
     }
+
+    
 
     /**
      * Method to show large changes in color
@@ -342,24 +360,32 @@ public class Picture extends SimplePicture {
      * @param edgeDist the distance for finding edges
      */
     public void customEdgeDetection(int edgeDist) {
-        Picture copy = new Picture(this);
 
+       
     }
 
     /** Method to create a collage of several pictures */
     public void createCollage() {
         Pixel[][] pixels = this.getPixels2D();
-        Picture swan1 = new Picture("swan.jpg");
-        Picture swan2 = new Picture("swan.jpg");
-        Picture swan3 = new Picture("swan.jpg");
 
-        swan1 = swan1.scale(1,1);
-        swan2 = swan2.scale(1,1);
-        swan3 = swan3.scale(1,1);
+        Picture swan1 = new Picture("swan.jpg");
+        swan1.keepOnlyBlue();
+
+        Picture swan2 = new Picture("swan.jpg");
+        swan2.keepOnlyRed();
+
+        Picture BarbaraS = new Picture("BarbaraS.jpg");
+        BarbaraS.negate();
+
+        swan1 = swan1.scale(0.5,0.67); 
+        swan2 = swan2.scale(0.5,0.67);
+        BarbaraS = BarbaraS.scale(2.5,3);
 
         this.copy(swan1,0,0);
-
-        this.popArt();
+        this.copy(swan2,180,0);
+        this.copy(BarbaraS,0,322);
+         
+        this.mirrorHorizontal();
     }
 
     /**
