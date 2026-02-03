@@ -43,8 +43,8 @@ public class PictureTester {
 
         // ---------------
         // ACTIVITY 8
-         testCollage();
-
+        // testCollage();
+         testCollage2();
         // ---------------
         // ACTIVITY 9
         // testEdgeDetection();
@@ -175,6 +175,13 @@ public class PictureTester {
     public static void testCollage() {
         Picture canvas = new Picture("640x480.jpg");
         canvas.createCollage();
+        canvas.explore();
+    }
+
+    /** Method to test the collage2 method */
+    public static void testCollage2() {
+        Picture canvas = new Picture("640x480.jpg");
+        canvas.createCollage2();
         canvas.explore();
     }
 

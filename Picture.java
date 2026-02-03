@@ -387,6 +387,36 @@ public class Picture extends SimplePicture {
          
         this.mirrorHorizontal();
     }
+        // ANOTHER COLLAGE!
+        // Bonus points???
+
+    public void createCollage2() {
+        Pixel[][] pixels = this.getPixels2D();
+
+        Picture gorge = new Picture("gorge.jpg");
+        
+        Picture koala = new Picture("koala.jpg");
+        koala.negate();
+        Picture Mark = new Picture("blue-mark.jpg");
+        Mark.negate();
+
+        Picture butterfly = new Picture("butterfly1.jpg");
+        butterfly.negate();
+
+
+        gorge = gorge.scale(1.5,1.5); 
+        koala = koala.scale(0.2,0.2); 
+        Mark = Mark.scale(0.4,0.4); 
+        butterfly = butterfly.scale(0.1,0.1);
+
+
+        this.copy(gorge,0,0);
+        this.copy(koala,121,514);
+        this.copy(Mark,300,200);
+        this.copy(butterfly,122,4);
+
+
+    }
 
     /**
      * copy from the passed fromPic to the specified startRow and startCol in the
